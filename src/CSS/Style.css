@@ -1,0 +1,13 @@
+.img-logo{
+    width: 500px !important;
+    height: auto !important;
+}
+body{
+    background: linear-gradient(purple,skyblue);
+}
+form p{
+    margin-left: 10px;
+    font-size: 13px !important;
+    text-align: left;
+    color: red;
+}
