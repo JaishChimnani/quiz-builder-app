@@ -70,10 +70,10 @@ const Greeting = () => {
         // 
         // console.log(formik.values);
     return (
-        <div className="text-center row">
+        <div className="text-center text-white row">
 
-        <div  className=" m-3 p-5 bg-quiz col col-lg-4">
-            <h1 className="text-white">Login to <i>  Quizzy-quiz</i></h1>
+        <div  className=" text-center m-5 p-5 bg-quiz col col-lg-4">
+            <h1 className="text-white">Login to <br /> <i>  Quizzy-quiz</i></h1>
             <form className="m-5" onSubmit={formik.handleSubmit}>
                 <div className="col-lg-12">
 
@@ -104,9 +104,9 @@ const Greeting = () => {
 </div> */}
 
                 <div className="col-lg-12">
-                    <button className="btn btn-outline-dark  rounded m-3" type="submit" name="Register"   id="" >Login</button>
+                    <button className="btn btn-outline-light  rounded m-3" type="submit" name="Register"   id="" >Login</button>
                     <div>New User ?
-                        <Link className="text-dark" to="/"  ><i>Create a new account.</i></Link>
+                        <Link className="text-white" to="/quiz-builder-app"  ><i>Create a new account.</i></Link>
                     </div>
                 </div>
             </form>

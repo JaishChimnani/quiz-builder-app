@@ -6,19 +6,23 @@ import {Route, Routes} from 'react-router-dom'
 import {BrowserRouter as Router } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import QuizMaker from './Components/QuizMaker';
+import Navbar from './Components/Navbar';
 
 function App() {
   
   return (
     <>
   <Router>
-    <Switch>
+    <Navbar/>
 
-    <Route exact path={"/login"} component={Login}></Route>
-    {/* {loggedIn} */}
-    <Route exact path={"/quiz"} component={QuizMaker}></Route>
-    <Route exact path={"/"} component={Greeting}></Route>
-    </Switch>
+    <Routes>
+
+
+    <Route exact path="/login" element={<Login/>}></Route>
+    {/* {loggedIn ? <Route exact path="/quiz"></Route>} */}
+    <Route exact path="/quiz" element={<QuizMaker/>}></Route>
+    <Route  path="/quiz-builder-app" element={<Greeting/>}></Route>
+    </Routes>
   </Router>
     </>
   );
