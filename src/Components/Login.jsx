@@ -4,15 +4,15 @@ import * as Yup from "yup";
 import "../CSS/Style.css";
 import Login from "./Login"
 import { ReactDOM } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 // import useNavigate from "react-router-dom";
 
+var loggedIn=false;
 const Greeting = () => {
 
-    var loggedIn=false;
     const formik=useFormik({
         initialValues:{
             // name:"",
@@ -104,7 +104,7 @@ const Greeting = () => {
 </div> */}
 
                 <div className="col-lg-12">
-                    <button className="btn btn-outline-light  rounded m-3" type="submit" name="Register"   id="" >Login</button>
+                    <button className="btn btn-outline-light  rounded m-3" type="submit" name="Register"   id="" ><Link to={"/quiz"}>Login</Link></button>
                     <div>New User ?
                         <Link className="text-white" to="/quiz-builder-app"  ><i>Create a new account.</i></Link>
                     </div>
@@ -119,5 +119,5 @@ const Greeting = () => {
 }
 
 
-
+export {loggedIn}
 export default Greeting;
