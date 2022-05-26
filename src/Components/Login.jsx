@@ -10,7 +10,8 @@ import { useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 // import useNavigate from "react-router-dom";
 
-const LoginComponent = (loggedIn,setLoggedIn) => {
+const LoginComponent = () => {
+    const [loggedIn,setLoggedIn]=useState(false);
     const nav=useNavigate();
     const formik=useFormik({
         initialValues:{
@@ -40,14 +41,17 @@ const LoginComponent = (loggedIn,setLoggedIn) => {
                         // this.props.history.push("/");
                         // history.push("/dashboard")
                         // loggedIn=true;
-                        setLogin(true);
-                        alert("Login");
+                        setLoggedIn(true);
+                        // alert(loggedIn);
                     }else{
 
                         alert("Wrong password")
                     }
                 } 
                 
+            }
+            if(!loggedIn){
+                alert("Wrong email or password")
             }
             // var users=[];
             // const user={
@@ -63,10 +67,8 @@ const LoginComponent = (loggedIn,setLoggedIn) => {
             }
         })
         
-        function setLogin(value){
-            setLoggedIn(value);
-        }
         function handleLogin(){
+            formik.handleSubmit();
             if(loggedIn){
                 nav("/create")
             }else{

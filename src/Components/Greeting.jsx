@@ -4,10 +4,10 @@ import * as Yup from "yup";
 import "../CSS/Style.css";
 import Login from "./Login"
 import { ReactDOM } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Greeting = () => {
-
+    const nav=useNavigate();
     const formik=useFormik({
         initialValues:{
             name:"",
@@ -26,12 +26,17 @@ const Greeting = () => {
             const email=formik.values.email;
             const password=formik.values.password;
             localStorage.setItem(email,JSON.stringify(password));
+            formik.resetForm();
             
             console.log(localStorage.getItem('email'));
     
         }
     })
 
+    function handleSignup(){
+        formik.handleSubmit();
+        nav("/login")
+    }
     
 
     // console.log(formik.values);
@@ -70,7 +75,7 @@ const Greeting = () => {
 </div> */}
 
                 <div className="col-lg-12">
-                    <button className="btn btn-outline-light  rounded m-3" type="submit" name="Register"   id="" >Register</button>
+                    <button onClick={handleSignup} className="btn btn-outline-light  rounded m-3" type="submit" name="Register"   id="" >Register</button>
                     <div>Already have an account  
                         <Link className="text-white" to="/Login"  > Login?</Link>
                     </div>
