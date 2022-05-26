@@ -17,7 +17,13 @@ const QuizMaker = () => {
                 }
             ]
         }, onSubmit: (quiz) => {
-            console.log(quiz);
+           const key =Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
+           
+            alert(key);
+            // console.log(quiz);
+            localStorage.setItem(key, JSON.stringify(quiz));
+            console.log(localStorage.getItem(key));
+
         }
     })
 
@@ -39,7 +45,7 @@ const QuizMaker = () => {
                         optionType: "",
                         question: "",
                         options: [""],
-                        ans: [""]
+                        ans: ""
                     }]
             })
         } else {
@@ -79,7 +85,7 @@ const QuizMaker = () => {
                                         </>
                                     })}
                                 </div>
-                                <button className="bg-transparent" id="addOption" onClick={() => {
+                                <div className="bg-transparent btn btn-outline-light" id="addOption" onClick={() => {
                                     if (formik.values.questions[index].options.length < 5) {
                                         const v = [...formik.values.questions];
                                         v[index].options.push("");
@@ -92,12 +98,12 @@ const QuizMaker = () => {
                                         document.getElementById("addOption").style.display = "none";
 
                                     }
-                                }}>+</button>
+                                }}>+</div>
 
                                 <div className="row">
 
                                     <label htmlFor="" className="col-lg-3">Correct Answers:</label>
-                                    <input type={"text"} className="col-lg-3" />
+                                    <input value={formik.values.questions[index].ans} onChange={formik.handleChange} name={`questions.[${index}].ans`} on type={"text"} className="col-lg-3" />
                                 </div>
 
                                 {/* <FontAwesomeIcon icon="fa-solid fa-plus" /> */}
@@ -121,14 +127,12 @@ const QuizMaker = () => {
 
 
 
-                    <button id="addQuestion" onClick={(i) => incNumberOfQuestions(i)} className="btn btn-dark m-4">
-                        + Add Question</button>
+                    <div id="addQuestion" onClick={(i) => incNumberOfQuestions(i)} className="btn btn-dark m-4">
+                        + Add Question</div>
                 </div>
 
                 <div className="text-center m-5">
-                    <div className="btn btn-dark" onClick={() => {
-                        console.log(formik.values.questions);
-                    }}> Publish Quiz</div></div>
+                    <div className="btn btn-dark" onClick={formik.handleSubmit}> Publish Quiz</div></div>
             </form>
             {/* <div className="text-white container">
 

@@ -3,7 +3,7 @@
     height: auto !important;
 }
 body{
-    background: linear-gradient(purple,rgb(13, 110, 148));
+    background: linear-gradient(to right,purple,rgb(33, 105, 249));
 }
 form p{
     margin-left: 10px;

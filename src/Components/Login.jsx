@@ -1,18 +1,17 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import "../CSS/Style.css";
 import Login from "./Login"
 import { ReactDOM } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 // import useNavigate from "react-router-dom";
 
-var loggedIn=false;
-const Greeting = () => {
-
+const LoginComponent = (loggedIn,setLoggedIn) => {
+    const nav=useNavigate();
     const formik=useFormik({
         initialValues:{
             // name:"",
@@ -41,15 +40,14 @@ const Greeting = () => {
                         // this.props.history.push("/");
                         // history.push("/dashboard")
                         // loggedIn=true;
+                        setLogin(true);
                         alert("Login");
                     }else{
 
-                        alert("oops")
+                        alert("Wrong password")
                     }
                 } 
-                else{
-                    alert("oops")
-                }
+                
             }
             // var users=[];
             // const user={
@@ -65,9 +63,16 @@ const Greeting = () => {
             }
         })
         
-        
-        
-        // 
+        function setLogin(value){
+            setLoggedIn(value);
+        }
+        function handleLogin(){
+            if(loggedIn){
+                nav("/create")
+            }else{
+                nav("/login")
+            }
+        }        // 
         // console.log(formik.values);
     return (
         <div className="text-center text-white row">
@@ -104,7 +109,8 @@ const Greeting = () => {
 </div> */}
 
                 <div className="col-lg-12">
-                    <button className="btn btn-outline-light  rounded m-3" type="submit" name="Register"   id="" ><Link to={"/quiz"}>Login</Link></button>
+                    <button type="submit" onClick={handleLogin} className="btn btn-primary">Login
+                    </button>
                     <div>New User ?
                         <Link className="text-white" to="/quiz-builder-app"  ><i>Create a new account.</i></Link>
                     </div>
@@ -119,5 +125,5 @@ const Greeting = () => {
 }
 
 
-export {loggedIn}
-export default Greeting;
+// export {loggedIn,setLoggedIn}
+export default LoginComponent;
