@@ -30,7 +30,7 @@ function App() {
                         <Navigate replace to={"/quiz"}></Navigate>:null}
     <Route exact path="/quiz" element={<QuizMaker/>}></Route>
     <Route exact path="/create" element={<CreateQuiz/>}></Route>
-    <Route exact path={"/quiz-builder-app" | "/"} element={<Greeting/>}></Route>
+    <Route exact path={"/quiz-builder-app"} element={<Greeting/>}></Route>
     <Route  path={"/quiz/:id"} element={<QuizDisplay />}></Route>
     <Route  path={"*"} element={<Error />}></Route>
     </Routes>
