@@ -67,9 +67,11 @@ const QuizMaker = () => {
             <form action="" onSubmit={formik.handleSubmit}>
                 <div className="text-white">
 
+<div className="text-center">
 
                     <label className="m-5">Quiz Title</label>
                     <input className="m-3" name="quizTitle" type="text" value={formik.values.quizTitle} onChange={formik.handleChange} />
+</div>
                     {/* {alert(formik.values.quizTitle)} */}
                     <ol className="">
 
@@ -79,10 +81,10 @@ const QuizMaker = () => {
 
                             return (
                                 <div>
-                                    <li className="m-5">
+                                    <li className="m-2">
 
                                         <label className="m-4" htmlFor="ta-1">Question</label>
-                                        <textarea name={`questions[${index}].question`} value={formik.values.questions[index].question} onChange={formik.handleChange} className=" col-lg-12 text-white bg-transparent form-control" />
+                                        <textarea name={`questions[${index}].question`} value={formik.values.questions[index].question} onChange={formik.handleChange} className=" col-lg-12 text-white bg-transparent border rounded " />
                                         <label htmlFor="" className="m-1">Options :</label>
                                         <select className="form-select m-3" id="type" onChange={(e)=>{
                                             // alert(index)
@@ -121,21 +123,21 @@ const QuizMaker = () => {
 
                                                 </>
                                             })}
-                                        </div>
-                                        <div className="bg-transparent btn btn-outline-light" id="addOption" onClick={() => {
+                                        <span className="bg-transparent btn btn-outline-light m-5" id="addOption" onClick={() => {
                                             if (formik.values.questions[index].options.length < 5) {
                                                 const v = [...formik.values.questions];
                                                 v[index].options.push("");
-
+                                                
                                                 formik.setValues({
                                                     ...formik.values,
                                                     questions: v
                                                 })
                                             } else {
                                                 document.getElementById("addOption").style.display = "none";
-
+                                                
                                             }
-                                        }}>+</div>
+                                        }}>+</span>
+                                        </div>
 
                                         <div className="row">
 
