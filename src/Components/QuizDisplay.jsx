@@ -17,39 +17,99 @@ const QuizDisplay = () => {
 
 
     function handleAns(option,id) {
-        alert(id);
+        // alert(id);
         if (question === quiz.questions.length-1 ) {
             setShowScore(true);
         }
         const isCorrect = checkAns(option);
         if (isCorrect) {
             setScore(score + 1);
-            alert("score:"+score)
+            // alert("score:"+score)
         } else {
             
         }
         setQuestion(question + 1);
-        alert(question);
+        // alert(question);
 
     }
     function checkAns(value) {
         // var value = quiz.questions[question].options[oId];
         var answer=false;
-        alert(value);
+        // alert(value);
         console.log(quiz.questions[question].ans)
         quiz.questions[question].ans.map((ansItem,ansIndex)=>{
-            alert(ansItem+value)
+            // alert(ansItem+value)
             if (value === ansItem) {
                 alert("Correct answer")
                 answer= true;
             }
         })
+        if(answer===false) {
+            alert("wrong answer")
+        }
         // quiz.questions[question].ans.map((item, index)=>{
         //     if(value==item){
         //         return true;
         //     }
         // })
         return answer;
+    }
+    function handleSingleClick(id){
+        const optionid="singleoption"+id;
+        // alert(optionid)
+        document.getElementById(optionid).checked=true;
+    }
+    function handleMultipleClick(id){
+        const optionid="multipleoption"+id;
+        // alert(optionid)
+        document.getElementById(optionid).checked=true;
+    }
+    function nextQuestion(){
+        if(quiz.questions[question].optionType==="Multiple"){
+            // alert("Multiple")
+            var ele = document.getElementsByName('MultipleOptions');
+            var value=[];
+            var id;
+            
+            for(var i = 0; i < ele.length; i++) {
+                // alert("LOOP")
+                if(ele[i].checked){
+                    // alert(ele[i].value)
+
+                    value.push(
+                        ele[i].value)
+                        id=i;
+                    }
+            }
+            // handleAns(value,id)
+            if (question === quiz.questions.length-1 ) {
+                setShowScore(true);
+            }
+
+            var isCorrect = true;
+            for(var i = 0; i <value.length; i++){
+                if(!checkAns(value[i])){
+                    isCorrect=false;
+                }
+            }
+            if(isCorrect){
+                setScore(score+1);
+            }
+            setQuestion(question+1);
+            // alert("question"+question);
+        }
+            else{
+                var ele = document.getElementsByName('options');
+                var value="";
+                var id;
+                
+                for(var i = 0; i < ele.length; i++) {
+                    if(ele[i].checked)
+                    value = ele[i].value;
+                    id=i;
+                }
+                handleAns(value,id)
+            }
     }
     return <>
         <div className="container text-white">
@@ -66,17 +126,31 @@ const QuizDisplay = () => {
 
                         <span>{question + 1}.  </span>
                         <span>{quiz.questions[question].question}</span>
-                        <ol className="row">
+                        <ul className="row " >
 
                             {quiz.questions[question].options.map((option, i) => {
                                 return <>
-                                    <li onClick={() => handleAns(option,i)} id={"option" + question} className="col-lg-3 m-5 btn  border text-white">
-                                        {option}
-                                    </li>
+                                {quiz.questions[question].optionType===""?
+                                <li className="m-5 " >
+                                    <input type="radio" name="options" id={"singleoption"+i} value={option}/>
+                                    <label className="btn btn-outline-light option m-4 col-lg-4" onClick={()=>handleSingleClick(i)} for={option}>{option}</label>
+                                </li>
+                                    :<li>
+                                        <input type="checkbox" name="MultipleOptions" id={"multipleoption"+i} value={option}/>
+                                        <label className="btn btn-outline-light option m-4 col-lg-4" onClick={()=>handleMultipleClick(i)} for={option}>{option}</label>
+                                        
+                                        
+                                        
+                                        </li>}
+                                    {/* <li onClick={() => handleAns(option,i)} id={"option" + question} className="col-lg-3 m-5 btn btn-outline-dark  border text-white">
+                                        {/* <input type="checkbox" name="" id="" /> */}
+                                        {/* {option} */}
+                                    {/* </li> */} 
                                 </>
                             }
                             )}
-                        </ol>
+                        </ul>
+                            <button onClick={nextQuestion} className="btn btn-dark">Next</button>
                         {/* })} */}
                     </ol>
                 </div>

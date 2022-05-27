@@ -5,7 +5,7 @@ import Question from "./Question";
 
 const QuizMaker = () => {
 
-    const [showAddAnswer, setShowAddAnswer]=useState(false);
+    const [showAddAnswer, setShowAddAnswer] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -33,19 +33,11 @@ const QuizMaker = () => {
     const QuestionList = () => {
 
     }
-    
-    
-    // document.getElementById("addAnswer").style.display = "none";
-    function handleOptionType(e) {
-        var selected = e.target.value;
-        alert(selected)
-        if (selected === "Multiple") {
-            // document.getElementById("addAnswer").style.display = "block";
-            setShowAddAnswer(true);
-            
-        }else{
 
-        }
+
+    // document.getElementById("addAnswer").style.display = "none";
+    function handleOptionType(e, index) {
+        
     }
 
 
@@ -92,9 +84,33 @@ const QuizMaker = () => {
                                         <label className="m-4" htmlFor="ta-1">Question</label>
                                         <textarea name={`questions[${index}].question`} value={formik.values.questions[index].question} onChange={formik.handleChange} className=" col-lg-12 text-white bg-transparent form-control" />
                                         <label htmlFor="" className="m-1">Options :</label>
-                                        <select className="form-select m-3" onChange={handleOptionType}>
+                                        <select className="form-select m-3" id="type" onChange={(e)=>{
+                                            // alert(index)
+                                            var selected = e.target.value;
+                                            alert(selected)
+                                            if (selected === "Multiple") {
+                                                // document.getElementById("addAnswer").style.display = "block";
+                                                setShowAddAnswer(true);
+                                                const v = [...formik.values.questions];
+                                                v[index].optionType=selected;
+                                                
+                                                formik.setValues({
+                                                    ...formik.values,
+                                                    questions: v
+                                                })
+                                            } else {
+                                                setShowAddAnswer(false);
+                                                const v = [...formik.values.questions];
+                                                v[index].optionType=selected;
+                                    
+                                                formik.setValues({
+                                                    ...formik.values,
+                                                    questions: v
+                                                })
+                                            }
+                                        }}>
                                             <option value="Single">Single Type MCQ</option>
-                                            <option value="Multiple">Multiple Type MCQ</option>
+                                            <option value="Multiple" >Multiple Type MCQ</option>
                                         </select>
                                         <div className="row">
 
@@ -143,7 +159,7 @@ const QuizMaker = () => {
                                                     })
                                                 }
                                             }} className="btn btn-outline-light m-3 " id="addAnswer">+</div>
-                                            :null}
+                                                : null}
                                         </div>
 
                                         {/* <FontAwesomeIcon icon="fa-solid fa-plus" /> */}
